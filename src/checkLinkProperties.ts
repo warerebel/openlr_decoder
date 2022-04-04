@@ -14,3 +14,9 @@ export function checkFow(currentLinkFow: formOfWay, LRPFow: number){
     default: return false;
     }
 }
+
+export function checkBearing(currentLinkBearing: number, LRPBearing: number, bearningError = 25){
+    const targetBearing = LRPBearing > 180 ? LRPBearing - 360 : LRPBearing;
+    const error = Math.abs(currentLinkBearing - targetBearing);
+    return error < bearningError ? true : false;
+}
