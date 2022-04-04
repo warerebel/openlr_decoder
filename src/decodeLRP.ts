@@ -1,5 +1,5 @@
 import * as openlrJS from "openlr-js";
-import {LRPObject} from "./LRP";
+import type {LRPObject} from "./LRP";
 
 export function getLRP(openLrString: string): LRPObject{
     const binaryDecoder = new openlrJS.BinaryDecoder();
