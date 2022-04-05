@@ -6,7 +6,7 @@
     "openlr",
     "transport models"
   ],
-  "main": "index.js",
+  "main": "dist/index.ts",
   "dependencies": {
     "mongodb": "^4.4.1",
     "node-dijkstra": "^2.5.0",
