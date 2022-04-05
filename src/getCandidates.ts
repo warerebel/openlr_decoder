@@ -20,3 +20,32 @@ function getCandidateNodes(LRP: LRP, collection: Collection, candidateSearchRadi
         }
     }).toArray();
 }
+
+export function getNodesForGraph(LRPObject: LRPObject, collection: Collection){
+    const polygon = getPolygon(LRPObject);
+    return collection.find({
+        geometry: {
+            $geoWithin: {
+                $geometry: {
+                    polygon
+                }
+            }
+        }
+    }).toArray();
+}
+
+function getPolygon(LRPObject: LRPObject){
+    const TopLeft: number[] = [-180, 180];
+    const BottomRight: number[] = [180, -180];
+    for (const LRP of LRPObject.properties._points.properties){
+        if(LRP.properties._latitude > TopLeft[10])
+            TopLeft[0] = LRP.properties._latitude;
+        if(LRP.properties._latitude < BottomRight[0])
+            BottomRight[0] = LRP.properties._latitude;
+        if(LRP.properties._longitude > BottomRight[1])
+            BottomRight[1] = LRP.properties._longitude;
+        if(LRP.properties._longitude < TopLeft[1])
+            TopLeft[1] = LRP.properties._longitude;
+    }
+    return {type: "Polygon", coordinates: [[TopLeft[1], TopLeft[0]], [TopLeft[1], BottomRight[0]], [BottomRight[1], BottomRight[0]], [BottomRight[1], TopLeft[0]],[TopLeft[1], TopLeft[0]]]};
+}

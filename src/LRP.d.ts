@@ -6,7 +6,7 @@ export interface LRP {
         _frc: number,
         _fow: number,
         _lfrcnp: number,
-        isLast: boolean,
+        _isLast: boolean,
         _longitude: number,
         _latitude: number,
         _sequenceNumber: number
