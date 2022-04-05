@@ -17,7 +17,7 @@ export interface nodeChildLink {
     frc: frc
 }
 
-declare enum formOfWay {
+export enum formOfWay {
     Motorway = "M",
     DualCarriageway ="DC",
     SingleCarriageway = "SC",

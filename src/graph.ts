@@ -1,5 +1,5 @@
 import Graph from "node-dijkstra";
-import {node, linkLookup, nodeChildLink, graphInput} from "./nodes";
+import type {node, linkLookup, nodeChildLink, graphInput} from "./nodes";
 
 export function buildLinkLookups(nodeCollection: Array<node>) {
     const linkLookup = {};

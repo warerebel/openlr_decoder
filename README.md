@@ -4,4 +4,4 @@ openlr_decoder
 ![CodeQL Analysis](https://github.com/warerebel/openlr-decoder/actions/workflows/codeql-analysis.yml/badge.svg)
 ![Build and test](https://github.com/warerebel/openlr-decoder/actions/workflows/node.js.yml/badge.svg)
 
-A general purpose road network OpenLR decoding solution
+A general purpose OpenLR decoding solution for a road network.
