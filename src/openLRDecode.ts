@@ -5,7 +5,6 @@ import { Mongo } from "./mongo";
 import { buildLinkLookups, getGraph } from "./graph";
 import type { linkLookup, node } from "./nodes";
 import type { LRPObject } from "./LRP";
-import type {PathResult} from "node-dijkstra";
 import type Graph from "node-dijkstra";
 
 export interface OpenLRDecodeOptions {
@@ -43,7 +42,7 @@ async function buildGraph(decodedOpenLR: LRPObject, collectionName: string) {
 function getPath(nodes: string[], graph: Graph) {
     const paths = [];
     for (let i = 0; i < (nodes.length - 1); i++) {
-        paths.push(graph.path(nodes[i], nodes[i + 1], { cost: true }) as PathResult);
+        paths.push(graph.path(nodes[i], nodes[i + 1], { cost: true }) as Graph.PathResult);
     }
     const result = { path: [] as string[], cost: 0 };
     for (const index in paths) {
