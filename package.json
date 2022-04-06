@@ -1,12 +1,12 @@
 {
-  "name": "openlr-decoder",
-  "version": "0.1.0",
+  "name": "openlr_decoder",
+  "version": "0.1.1",
   "description": "A general purpose road network OpenLR decoding solution",
   "keywords": [
     "openlr",
     "transport models"
   ],
-  "main": "dist/index.ts",
+  "main": "dist/index.js",
   "dependencies": {
     "mongodb": "^4.4.1",
     "node-dijkstra": "^2.5.0",
