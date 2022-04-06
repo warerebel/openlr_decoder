@@ -45,5 +45,6 @@ function getPolygon(LRPObject: LRPObject){
         if(LRP.properties._longitude < TopLeft[1])
             TopLeft[1] = LRP.properties._longitude;
     }
-    return {type: "Polygon", coordinates: [[[TopLeft[1], TopLeft[0]], [TopLeft[1], BottomRight[0]], [BottomRight[1], BottomRight[0]], [BottomRight[1], TopLeft[0]],[TopLeft[1], TopLeft[0]]]]};
+    const paddingValue = 0.01;
+    return {type: "Polygon", coordinates: [[[TopLeft[1] + paddingValue, TopLeft[0] - paddingValue], [TopLeft[1] + paddingValue, BottomRight[0] + paddingValue], [BottomRight[1] - paddingValue, BottomRight[0] + paddingValue], [BottomRight[1] - paddingValue, TopLeft[0] - paddingValue],[TopLeft[1] + paddingValue, TopLeft[0] - paddingValue]]]};
 }
