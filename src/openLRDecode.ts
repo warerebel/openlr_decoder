@@ -4,7 +4,7 @@ import { chooseWinningNodes } from "./chooseWinningNodes";
 import { Mongo } from "./mongo";
 import { buildLinkLookups, getGraph } from "./graph";
 import type { linkLookup, node } from "./nodes";
-import type { LRPObject } from "./LRP";
+import type { LRPObject, LRP } from "./LRP";
 import type Graph from "node-dijkstra";
 
 type PathResult = {
@@ -19,14 +19,19 @@ export interface OpenLRDecodeOptions {
 
 export async function decodeOpenLRReference(openLRRef: string, collectionName: string, options: OpenLRDecodeOptions) {
     const decodedOpenLR = getLRP(openLRRef);
+    const distance = decodedOpenLR.properties._points.properties.reduce(getLRPObjectLength, 0);
     const winningNodes = await getWinningNodes(decodedOpenLR, collectionName, options);
     if (winningNodes.length > 1) {
         const graph = await buildGraph(decodedOpenLR, collectionName);
         const path = getPath(winningNodes as string[], graph.graph);
         const route = getRoute(path.path, graph.linklookup);
-        return {route: route, cost: path.cost};
+        return {route: route, cost: path.cost, openLRRef: openLRRef, openLRDistance: distance};
     }
-    return {route: null, cost: null};
+    return {route: null, cost: null, openLRRef: openLRRef, openLRDistance: distance};
+}
+
+function getLRPObjectLength(prev: number, cur: LRP){
+    return prev + cur.properties._distanceToNext;
 }
 
 async function getWinningNodes(decodedOpenLR: LRPObject, collectionName: string, options: OpenLRDecodeOptions) {
