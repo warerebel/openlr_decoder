@@ -26,9 +26,7 @@ export function getNodesForGraph(LRPObject: LRPObject, collection: Collection){
     return collection.find({
         geometry: {
             $geoWithin: {
-                $geometry: {
-                    polygon
-                }
+                $geometry: polygon
             }
         }
     }).toArray();
@@ -38,7 +36,7 @@ function getPolygon(LRPObject: LRPObject){
     const TopLeft: number[] = [-180, 180];
     const BottomRight: number[] = [180, -180];
     for (const LRP of LRPObject.properties._points.properties){
-        if(LRP.properties._latitude > TopLeft[10])
+        if(LRP.properties._latitude > TopLeft[0])
             TopLeft[0] = LRP.properties._latitude;
         if(LRP.properties._latitude < BottomRight[0])
             BottomRight[0] = LRP.properties._latitude;
@@ -47,5 +45,6 @@ function getPolygon(LRPObject: LRPObject){
         if(LRP.properties._longitude < TopLeft[1])
             TopLeft[1] = LRP.properties._longitude;
     }
-    return {type: "Polygon", coordinates: [[TopLeft[1], TopLeft[0]], [TopLeft[1], BottomRight[0]], [BottomRight[1], BottomRight[0]], [BottomRight[1], TopLeft[0]],[TopLeft[1], TopLeft[0]]]};
+    const paddingValue = 0.01;
+    return {type: "Polygon", coordinates: [[[TopLeft[1] + paddingValue, TopLeft[0] - paddingValue], [TopLeft[1] + paddingValue, BottomRight[0] + paddingValue], [BottomRight[1] - paddingValue, BottomRight[0] + paddingValue], [BottomRight[1] - paddingValue, TopLeft[0] - paddingValue],[TopLeft[1] + paddingValue, TopLeft[0] - paddingValue]]]};
 }
