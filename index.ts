@@ -20,6 +20,6 @@ export async function initMongo(url: string, dbName: string){
  * @param options {object} - Options for the OpenLR decoding. The radius to search for candidate nodes in meters. The tolerance for matching link bearings in degrees.
  * @returns {Promise} - Returns a promise with the decode result
  */
-export async function decodeOpenLR(openLRRef: string, collectionName: string, options: OpenLRDecodeOptions): Promise<{route: {length: number;linkid: string;}[];cost: number;} | {route: null;cost: null;}>{
+export async function decodeOpenLR(openLRRef: string, collectionName: string, options: OpenLRDecodeOptions): Promise<{route: {length: number;linkid: string;}[]; routeLength: number; nodes: string[]; openLRRef: string; openLRDistance: number} | {route: null; routeLength: null;nodes: null; openLRRef: string; openLRDistance: number}>{
     return decodeOpenLRReference(openLRRef, collectionName, options);
 }

@@ -25,9 +25,9 @@ export async function decodeOpenLRReference(openLRRef: string, collectionName: s
         const graph = await buildGraph(decodedOpenLR, collectionName);
         const path = getPath(winningNodes as string[], graph.graph);
         const route = getRoute(path.path, graph.linklookup);
-        return {route: route, cost: path.cost, openLRRef: openLRRef, openLRDistance: distance};
+        return {route: route, nodes: path.path, routeLength: path.cost, openLRRef: openLRRef, openLRDistance: distance};
     }
-    return {route: null, cost: null, openLRRef: openLRRef, openLRDistance: distance};
+    return {route: null, nodes: null, routeLength: null, openLRRef: openLRRef, openLRDistance: distance};
 }
 
 function getLRPObjectLength(prev: number, cur: LRP){
