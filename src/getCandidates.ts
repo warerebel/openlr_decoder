@@ -33,18 +33,24 @@ export function getNodesForGraph(LRPObject: LRPObject, collection: Collection){
 }
 
 function getPolygon(LRPObject: LRPObject){
-    const TopLeft: number[] = [-180, 180];
-    const BottomRight: number[] = [180, -180];
-    for (const LRP of LRPObject.properties._points.properties){
-        if(LRP.properties._latitude > TopLeft[0])
-            TopLeft[0] = LRP.properties._latitude;
-        if(LRP.properties._latitude < BottomRight[0])
-            BottomRight[0] = LRP.properties._latitude;
-        if(LRP.properties._longitude > BottomRight[1])
-            BottomRight[1] = LRP.properties._longitude;
-        if(LRP.properties._longitude < TopLeft[1])
-            TopLeft[1] = LRP.properties._longitude;
+    let Top = -180;
+    let Left = 180;
+    let Bottom = 180;
+    let Right = -180;
+    for (const LRP of LRPObject.properties._points.properties) {
+        if (LRP.properties._latitude > Top)
+            Top = LRP.properties._latitude;
+        if (LRP.properties._latitude < Bottom)
+            Bottom = LRP.properties._latitude;
+        if (LRP.properties._longitude > Right)
+            Right = LRP.properties._longitude;
+        if (LRP.properties._longitude < Left)
+            Left = LRP.properties._longitude;
     }
-    const paddingValue = 0.01;
-    return {type: "Polygon", coordinates: [[[TopLeft[1] + paddingValue, TopLeft[0] - paddingValue], [TopLeft[1] + paddingValue, BottomRight[0] + paddingValue], [BottomRight[1] - paddingValue, BottomRight[0] + paddingValue], [BottomRight[1] - paddingValue, TopLeft[0] - paddingValue],[TopLeft[1] + paddingValue, TopLeft[0] - paddingValue]]]};
+    const paddingValue = 0.02;
+    Top = Top + paddingValue;
+    Bottom = Bottom - paddingValue;
+    Left = Left - paddingValue;
+    Right = Right + paddingValue;
+    return { type: "Polygon", coordinates: [[[Left, Top], [Right, Top], [Right, Bottom], [Left, Bottom], [Left, Top]]] };
 }
