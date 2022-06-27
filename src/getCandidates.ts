@@ -47,7 +47,7 @@ function getPolygon(LRPObject: LRPObject){
         if (LRP.properties._longitude < Left)
             Left = LRP.properties._longitude;
     }
-    const paddingValue = 0.0005;
+    const paddingValue = 0.005;
     Top = Top + paddingValue;
     Bottom = Bottom - paddingValue;
     Left = Left - paddingValue;
