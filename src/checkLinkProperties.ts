@@ -1,6 +1,6 @@
 import {formOfWay} from "./nodes";
 
-const OS_OPEN_ROADS = process.env["OS_OPEN_ROADS"] || "false";
+const OS_OPEN_ROADS = process.env["OS_OPEN_ROADS"] || false;
 
 // eslint-disable-next-line complexity
 export function checkFow(currentLinkFow: formOfWay, LRPFow: number){
