@@ -4,8 +4,15 @@ import type {node, linkLookup, nodeChildLink, graphInput} from "./nodes";
 export function buildLinkLookups(nodeCollection: Array<node>) {
     const linkLookup = {};
     const graphInput = {};
-    nodeCollection.map(node => node.startLinks.map(link => addLinkToGraph(link, linkLookup, graphInput)));
+    nodeCollection.map(node => checkForEndpoints(node, linkLookup, graphInput));
     return {links: linkLookup as linkLookup, graphInput: graphInput as graphInput};
+}
+
+function checkForEndpoints(node: node, linkLookup: linkLookup, graphInput: graphInput){
+    if(node.startLinks)
+        node.startLinks.map(link => addLinkToGraph(link, linkLookup, graphInput));
+    else
+        node.endLinks.map(link => addLinkToGraph(link, linkLookup, graphInput));
 }
 
 export function getGraph(input: graphInput){
