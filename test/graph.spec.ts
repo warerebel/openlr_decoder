@@ -30,7 +30,7 @@ describe("graph", function(){
 
         it("returns graph lookup and link lookup", function(){
             const nodeInput: node[] = nodesCollection as node[];
-            const result = buildLinkLookups(nodeInput);
+            const result = buildLinkLookups(nodeInput, 7);
             assert.deepStrictEqual(result.links, linkLookup);
             assert.deepStrictEqual(result.graphInput, graphInput);
         });
@@ -41,7 +41,7 @@ describe("graph", function(){
     
         it("Creates a navigable map object", function(){
             const nodeInput: node[] = nodesCollection as node[];
-            const lookup = buildLinkLookups(nodeInput);
+            const lookup = buildLinkLookups(nodeInput, 7);
             const graph = getGraph(lookup.graphInput);
             const path = graph.path("{E699D3DD-19C5-4705-BF19-C296FD2D429E}0", "{D61C07C8-5839-4EA1-A0A6-723A224B8BFA}0",{cost: true});
             assert.deepStrictEqual(path, {cost: 32, path: ["{E699D3DD-19C5-4705-BF19-C296FD2D429E}0", "{D61C07C8-5839-4EA1-A0A6-723A224B8BFA}0"]});
