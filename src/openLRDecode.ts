@@ -44,7 +44,8 @@ async function getWinningNodes(decodedOpenLR: LRPObject, collectionName: string,
 async function buildGraph(decodedOpenLR: LRPObject, collectionName: string) {
     const collection = Mongo.getCollection(collectionName);
     const nodesForGraph = await getNodesForGraph(decodedOpenLR, collection);
-    const lookups = buildLinkLookups(nodesForGraph as unknown as node[]);
+    const lfrc = decodedOpenLR.properties._points.properties.reduce((pre, lrp) => lrp.properties._lfrcnp > pre ? lrp.properties._lfrcnp: pre, 0);
+    const lookups = buildLinkLookups(nodesForGraph as unknown as node[], lfrc);
     const graph = getGraph(lookups.graphInput);
     return { graph: graph, linklookup: lookups.links };
 }

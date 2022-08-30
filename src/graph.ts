@@ -1,18 +1,18 @@
 import Graph from "node-dijkstra";
 import type {node, linkLookup, nodeChildLink, graphInput} from "./nodes";
 
-export function buildLinkLookups(nodeCollection: Array<node>) {
+export function buildLinkLookups(nodeCollection: Array<node>, lfrc: number) {
     const linkLookup = {};
     const graphInput = {};
-    nodeCollection.map(node => checkForEndpoints(node, linkLookup, graphInput));
+    nodeCollection.map(node => checkForEndpoints(node, linkLookup, graphInput, lfrc));
     return {links: linkLookup as linkLookup, graphInput: graphInput as graphInput};
 }
 
-function checkForEndpoints(node: node, linkLookup: linkLookup, graphInput: graphInput){
+function checkForEndpoints(node: node, linkLookup: linkLookup, graphInput: graphInput, lfrc: number){
     if(node.startLinks)
-        node.startLinks.map(link => addLinkToGraph(link, linkLookup, graphInput));
+        node.startLinks.map(link => link.frc <= lfrc ? addLinkToGraph(link, linkLookup, graphInput): null);
     else
-        node.endLinks.map(link => addLinkToGraph(link, linkLookup, graphInput));
+        node.endLinks.map(link => link.frc <= lfrc ? addLinkToGraph(link, linkLookup, graphInput): null);
 }
 
 export function getGraph(input: graphInput){
