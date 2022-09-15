@@ -1,0 +1,11 @@
+{
+    "linkLookup": {
+        "1": {
+            "2": {"length": 10, "linkid": "a"},
+            "5": {"length": 10, "linkid": "i"}
+        }
+    },
+    "graphInput": {
+
+    }
+}

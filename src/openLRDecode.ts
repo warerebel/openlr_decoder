@@ -1,7 +1,6 @@
 import { getLRP } from "./decodeLRP";
 import { getCandidatesForLRP, getNodesForGraph } from "./getCandidates";
 import { chooseWinningNodes } from "./chooseWinningNodes";
-import { Mongo } from "./mongo";
 import { buildLinkLookups, getGraph } from "./graph";
 import type { linkLookup, node } from "./nodes";
 import type { LRPObject, LRP } from "./LRP";
@@ -17,12 +16,12 @@ export interface OpenLRDecodeOptions {
     targetBearing?: number | undefined;
 }
 
-export async function decodeOpenLRReference(openLRRef: string, collectionName: string, options: OpenLRDecodeOptions) {
+export async function decodeOpenLRReference(openLRRef: string, options: OpenLRDecodeOptions) {
     const decodedOpenLR = getLRP(openLRRef);
     const distance = decodedOpenLR.properties._points.properties.reduce(getLRPObjectLength, 0);
-    const winningNodes = await getWinningNodes(decodedOpenLR, collectionName, options);
+    const winningNodes = await getWinningNodes(decodedOpenLR, options);
     if (winningNodes.length > 1) {
-        const graph = await buildGraph(decodedOpenLR, collectionName);
+        const graph = await buildGraph(decodedOpenLR);
         const path = getPath(winningNodes as string[], graph.graph);
         const route = getRoute(path.path, graph.linklookup);
         return {route: route, nodes: path.path, routeLength: path.cost, openLRRef: openLRRef, openLRDistance: distance};
@@ -34,16 +33,14 @@ function getLRPObjectLength(prev: number, cur: LRP){
     return prev + cur.properties._distanceToNext;
 }
 
-async function getWinningNodes(decodedOpenLR: LRPObject, collectionName: string, options: OpenLRDecodeOptions) {
-    const collection = Mongo.getCollection(collectionName);
-    const candidateNodes = await getCandidatesForLRP(decodedOpenLR, collection, options.searchRadius) as unknown as node[][];
+async function getWinningNodes(decodedOpenLR: LRPObject, options: OpenLRDecodeOptions) {
+    const candidateNodes = await getCandidatesForLRP(decodedOpenLR, options.searchRadius) as unknown as node[][];
     const winningNodes = chooseWinningNodes(decodedOpenLR, candidateNodes, options.targetBearing);
     return winningNodes;
 }
 
-async function buildGraph(decodedOpenLR: LRPObject, collectionName: string) {
-    const collection = Mongo.getCollection(collectionName);
-    const nodesForGraph = await getNodesForGraph(decodedOpenLR, collection);
+async function buildGraph(decodedOpenLR: LRPObject) {
+    const nodesForGraph = await getNodesForGraph(decodedOpenLR);
     const lfrc = decodedOpenLR.properties._points.properties.reduce((pre, lrp) => lrp.properties._lfrcnp > pre ? lrp.properties._lfrcnp: pre, 0);
     const lookups = buildLinkLookups(nodesForGraph as unknown as node[], lfrc);
     const graph = getGraph(lookups.graphInput);

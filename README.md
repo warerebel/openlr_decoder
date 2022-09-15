@@ -13,7 +13,7 @@ This module provides a simple and performant solution to decode an openLR refere
 # Dependencies
 This module requires a mongodb database instance or an Azure Cosmos instance with support for mongodb api enabled.
 
-Native support for Azure Cosmos will be provided in a future release.
+Support for more backends will be added in future releases
 
 # Installation
 Install the module with npm:
@@ -25,55 +25,37 @@ npm install openlr_decoder
 # Import the module
 For commonjs:
 ```javascript
-const {decodeOpenLR, initMongo} = require("openlr_decoder");
+const {decodeOpenLR, initStorage} = require("openlr_decoder");
 ```
 For typescript:
 ```typescript
-import {decodeOpenLR, initMongo} from "openlr_decoder";
+import {decodeOpenLR, initStorage} from "openlr_decoder";
 ```
 
 # Example Usage
-Initialise the mongodb connection with the mongodb url and database name.
+Initialise a storage connection with the chosen storage backend, the database url, and database name.
 
-Decode an OpenLR string providing the string, the mongodb collection name to use for the nodes, and options.
+Decode an OpenLR string providing the string and any options.
 ```typescript
 async main(){
 
-    await initMongo("mongodb://localhost:27017", "openlrdatabase");
+    await initStorage("mongodb", "mongodb://localhost:27017", "openlrdatabase");
 
-    const result = decodeOpenLr("C/+/+yY40CuxDAA6/WgrHw==", "nodescollection", {targetBearing: 25, searchRadius: 100});
+    const result = await decodeOpenLr("C/+/+yY40CuxDAA6/WgrHw==", {targetBearing: 25, searchRadius: 100});
 
 }
 
 ```
 
-# Mongo Collection Design
-The module expects the mongodb database to have a collection which contains only node documents. Each node should contain two arrays named startLinks and endLinks. The startLinks array contains links which start from this node and the endLinks array contains links which end at this node. An example of a single node is provided below:
-``` json
-// Further info on each property are provided in the documentation
-{
-    "_id": "xyz", // A unique ID for the node
-    "startLinks": [
-        //array of links
-        "linkid":"abcd", // unique links id
-        "fow": "SC", // Link form of way
-        "startnode":"xyz", // the link's start node
-        "endnode":"abc", // the link's end node
-        "frc": 2, // the functional road class
-        "cost": 312, // The length of the link in any unit
-        "bearing": 49.78040927384026 // the bearing
-    ],
-    "endLinks": [
-        "linkid": "efgh",
-        "fow": "SC",
-        "startnode": "def",
-        "endnode": "xyz",
-        "frc": 2,
-        "cost": 312,
-        "bearing": 162.64822335654924
-    ]
-}
-```
+# Storage Schema
+
+The module expects data in the below described schemas for the chosen storage medium.
+
+- [mongodb](#mongo-collection-design)
+
+## Mongo Collection Design
+The module expects the mongodb database to have a collection named "nodes" which contains only node documents. Each node should contain two arrays named startLinks and endLinks. The startLinks array contains links which start from this node and the endLinks array contains links which end at this node. A JSON schema file is provided [here](/storageSchemas/mongodb.json).
+
 A complete ready to use set of OS open roads data in this format, extracted from a MongoDB collection, is provided for download here [TODO].
 
 A fully worked example of getting an OpenLR service up and running is provided here [TODO].

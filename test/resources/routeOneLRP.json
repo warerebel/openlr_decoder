@@ -1,0 +1,51 @@
+{
+    "type": "RawLineLocationReference",
+    "properties": {
+      "_id": "binary",
+      "_locationType": 1,
+      "_returnCode": null,
+      "_points": {
+        "type": "Array",
+        "properties": [
+          {
+            "type": "LocationReferencePoint",
+            "properties": {
+              "_bearing": 45,
+              "_distanceToNext": 34,
+              "_frc": 1,
+              "_fow": 2,
+              "_lfrcnp": 1,
+              "_isLast": false,
+              "_longitude": 0,
+              "_latitude": 0,
+              "_sequenceNumber": 1
+            }
+          },
+          {
+            "type": "LocationReferencePoint",
+            "properties": {
+              "_bearing": 315,
+              "_distanceToNext": 0,
+              "_frc": 1,
+              "_fow": 2,
+              "_lfrcnp": 1,
+              "_isLast": true,
+              "_longitude": 3,
+              "_latitude": 0,
+              "_sequenceNumber": 2
+            }
+          }
+        ]
+      },
+      "_offsets": {
+        "type": "Offsets",
+        "properties": {
+          "_pOffset": 0,
+          "_nOffset": 0,
+          "_version": 3,
+          "_pOffRelative": 0,
+          "_nOffRelative": 0
+        }
+      }
+    }
+  }

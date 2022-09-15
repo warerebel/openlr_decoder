@@ -1,0 +1,87 @@
+[
+    {
+        "_id": "2",
+        "geometry": {
+            "type": "Point",
+            "coordinates": [1,0]
+        },
+        "startLinks": [
+            {
+                "startnode": "2",
+                "endnode": "3",
+                "linkid": "b",
+                "bearing": 90,
+                "fow": "DC",
+                "cost": 10,
+                "frc": 2
+            },
+            {
+                "startnode": "2",
+                "endnode": "5",
+                "linkid": "l",
+                "bearing": 0,
+                "fow": "DC",
+                "cost": 10,
+                "frc": 2
+            }
+        ],
+        "endLinks": [
+            {
+                "startnode": "1",
+                "endnode": "2",
+                "linkid": "a",
+                "bearing": -90,
+                "fow": "DC",
+                "cost": 10,
+                "frc": 2
+            },
+            {
+                "startnode": "7",
+                "endnode": "2",
+                "linkid": "d",
+                "bearing": 180,
+                "fow": "DC",
+                "cost": 10,
+                "frc": 2
+            }
+        ]
+    },
+    {
+        "_id": "3",
+        "geometry": {
+            "type": "Point",
+            "coordinates": [2,0]
+        },
+        "startLinks": [
+            {
+                "startnode": "3",
+                "endnode": "4",
+                "linkid": "c",
+                "bearing": 90,
+                "fow": "DC",
+                "cost": 10,
+                "frc": 2
+            },
+            {
+                "startnode": "3",
+                "endnode": "8",
+                "linkid": "e",
+                "bearing": 180,
+                "fow": "DC",
+                "cost": 10,
+                "frc": 2
+            }
+        ],
+        "endLinks": [
+            {
+                "startnode": "2",
+                "endnode": "3",
+                "linkid": "b",
+                "bearing": -90,
+                "fow": "DC",
+                "cost": 10,
+                "frc": 2
+            }
+        ]
+    }
+]

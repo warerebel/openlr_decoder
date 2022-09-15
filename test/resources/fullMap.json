@@ -1,0 +1,351 @@
+[
+    {
+        "_id": "1",
+        "geometry": {
+            "type": "Point",
+            "coordinates": [0,0]
+        },
+        "startLinks": [
+            {
+                "startnode": "1",
+                "endnode": "2",
+                "linkid": "a",
+                "bearing": 90,
+                "fow": "DC",
+                "cost": 10,
+                "frc": 2
+            },
+            {
+                "startnode": "1",
+                "endnode": "5",
+                "linkid": "i",
+                "bearing": 45,
+                "fow": "DC",
+                "cost": 12,
+                "frc": 1
+            }
+        ],
+        "endLinks": []
+    },
+    {
+        "_id": "2",
+        "geometry": {
+            "type": "Point",
+            "coordinates": [1,0]
+        },
+        "startLinks": [
+            {
+                "startnode": "2",
+                "endnode": "3",
+                "linkid": "b",
+                "bearing": 90,
+                "fow": "DC",
+                "cost": 10,
+                "frc": 2
+            },
+            {
+                "startnode": "2",
+                "endnode": "5",
+                "linkid": "l",
+                "bearing": 0,
+                "fow": "DC",
+                "cost": 10,
+                "frc": 2
+            }
+        ],
+        "endLinks": [
+            {
+                "startnode": "1",
+                "endnode": "2",
+                "linkid": "a",
+                "bearing": -90,
+                "fow": "DC",
+                "cost": 10,
+                "frc": 2
+            },
+            {
+                "startnode": "7",
+                "endnode": "2",
+                "linkid": "d",
+                "bearing": 0,
+                "fow": "DC",
+                "cost": 10,
+                "frc": 2
+            }
+        ]
+    },
+    {
+        "_id": "3",
+        "geometry": {
+            "type": "Point",
+            "coordinates": [2,0]
+        },
+        "startLinks": [
+            {
+                "startnode": "3",
+                "endnode": "4",
+                "linkid": "c",
+                "bearing": 90,
+                "fow": "DC",
+                "cost": 10,
+                "frc": 2
+            },
+            {
+                "startnode": "3",
+                "endnode": "8",
+                "linkid": "e",
+                "bearing": 180,
+                "fow": "DC",
+                "cost": 10,
+                "frc": 2
+            }
+        ],
+        "endLinks": [
+            {
+                "startnode": "2",
+                "endnode": "3",
+                "linkid": "b",
+                "bearing": -90,
+                "fow": "DC",
+                "cost": 10,
+                "frc": 2
+            }
+        ]
+    },
+    {
+        "_id": "4",
+        "geometry": {
+            "type": "Point",
+            "coordinates": [3,0]
+        },
+        "startLinks": [],
+        "endLinks": [
+            {
+                "startnode": "3",
+                "endnode": "4",
+                "linkid": "c",
+                "bearing": -90,
+                "fow": "DC",
+                "cost": 10,
+                "frc": 2
+            },
+            {
+                "startnode": "9",
+                "endnode": "4",
+                "linkid": "f",
+                "bearing": 0,
+                "fow": "DC",
+                "cost": 10,
+                "frc": 2
+            },
+            {
+                "startnode": "6",
+                "endnode": "4",
+                "linkid": "k",
+                "bearing": -45,
+                "fow": "DC",
+                "cost": 12,
+                "frc": 1
+            }
+        ]
+    },
+    {
+        "_id": "5",
+        "geometry": {
+            "type": "Point",
+            "coordinates": [1,1]
+        },
+        "startLinks": [
+            {
+                "startnode": "5",
+                "endnode": "6",
+                "linkid": "j",
+                "bearing": 90,
+                "fow": "DC",
+                "cost": 10,
+                "frc": 1
+            }
+        ],
+        "endLinks": [
+            {
+                "startnode": "1",
+                "endnode": "5",
+                "linkid": "i",
+                "bearing": -135,
+                "fow": "DC",
+                "cost": 12,
+                "frc": 1
+            },
+            {
+                "startnode": "2",
+                "endnode": "5",
+                "linkid": "l",
+                "bearing": 0,
+                "fow": "DC",
+                "cost": 10,
+                "frc": 2
+            }
+        ]
+    },
+    {
+        "_id": "6",
+        "geometry": {
+            "type": "Point",
+            "coordinates": [2,1]
+        },
+        "startLinks": [
+            {
+                "startnode": "6",
+                "endnode": "4",
+                "linkid": "k",
+                "bearing": 135,
+                "fow": "DC",
+                "cost": 12,
+                "frc": 1
+            }
+        ],
+        "endLinks": [
+            {
+                "startnode": "5",
+                "endnode": "6",
+                "linkid": "j",
+                "bearing": -90,
+                "fow": "DC",
+                "cost": 10,
+                "frc": 1
+            }
+        ]
+    },
+    {
+        "_id": "7",
+        "geometry": {
+            "type": "Point",
+            "coordinates": [1,-1]
+        },
+        "startLinks": [
+            {
+                "startnode": "7",
+                "endnode": "2",
+                "linkid": "d",
+                "bearing": 0,
+                "fow": "DC",
+                "cost": 10,
+                "frc": 2
+            },
+            {
+                "startnode": "7",
+                "endnode": "8",
+                "linkid": "g",
+                "bearing": 90,
+                "fow": "SC",
+                "cost": 10,
+                "frc": 2
+            }
+        ],
+        "endLinks": [
+            {
+                "startnode": "8",
+                "endnode": "7",
+                "linkid": "g",
+                "bearing": -90,
+                "fow": "SC",
+                "cost": 10,
+                "frc": 2
+            }
+        ]
+    },
+    {
+        "_id": "8",
+        "geometry": {
+            "type": "Point",
+            "coordinates": [2,-1]
+        },
+        "startLinks": [
+            {
+                "startnode": "8",
+                "endnode": "7",
+                "linkid": "g",
+                "bearing": -90,
+                "fow": "SC",
+                "cost": 10,
+                "frc": 2
+            },
+            {
+                "startnode": "8",
+                "endnode": "9",
+                "linkid": "h",
+                "bearing": 90,
+                "fow": "SC",
+                "cost": 10,
+                "frc": 2
+            }
+        ],
+        "endLinks": [
+            {
+                "startnode": "3",
+                "endnode": "8",
+                "linkid": "e",
+                "bearing": 180,
+                "fow": "DC",
+                "cost": 10,
+                "frc": 2
+            },
+            {
+                "startnode": "7",
+                "endnode": "8",
+                "linkid": "g",
+                "bearing": 90,
+                "fow": "SC",
+                "cost": 10,
+                "frc": 2
+            },
+            {
+                "startnode": "9",
+                "endnode": "8",
+                "linkid": "h",
+                "bearing": -90,
+                "fow": "SC",
+                "cost": 10,
+                "frc": 2
+            }
+        ]
+    },
+    {
+        "_id": "9",
+        "geometry": {
+            "type": "Point",
+            "coordinates": [3,-1]
+        },
+        "startLinks": [
+            {
+                "startnode": "9",
+                "endnode": "4",
+                "linkid": "f",
+                "bearing": 0,
+                "fow": "DC",
+                "cost": 10,
+                "frc": 2
+            },
+            {
+                "startnode": "9",
+                "endnode": "8",
+                "linkid": "h",
+                "bearing": -90,
+                "fow": "SC",
+                "cost": 10,
+                "frc": 2
+            }
+        ],
+        "endLinks": [
+            {
+                "startnode": "8",
+                "endnode": "9",
+                "linkid": "h",
+                "bearing": 90,
+                "fow": "SC",
+                "cost": 10,
+                "frc": 2
+            }
+        ]
+    }
+]
