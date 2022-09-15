@@ -2,7 +2,7 @@ import * as sinon from "sinon";
 import * as assert from "assert";
 import type {LRPObject} from "../src/LRP";
 import type {node} from "../src/nodes";
-import {configureStorage} from "../src/storage"
+import {configureStorage} from "../src/storage";
 import {getCandidatesForLRP} from "../src/getCandidates";
 
 describe ("getCandidatesForLRP", function(){

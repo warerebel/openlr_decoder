@@ -33,7 +33,7 @@ export class Mongo extends storageOption{
         }).toArray();
     }
 
-    override async findNodesInPolygon(polygon: Polygon): Promise<any> {
+    override async findNodesInPolygon(polygon: Polygon): Promise<unknown> {
         const collection = Mongo.db.collection("nodes");
         return collection.find({
             geometry: {
