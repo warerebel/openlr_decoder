@@ -1,40 +1,90 @@
+import * as openlrJS from "openlr-js";
 import {decodeOpenLRReference, OpenLRDecodeOptions} from "../src/openLRDecode";
 import * as assert from "assert";
 import * as sinon from "sinon";
-import {Mongo} from "../src/mongo";
-import type {Collection} from "mongodb";
+import {configureStorage} from "../src/storage";
 
-import lrpOneCandidates from "./resources/lrpOneCandidates.json";
+/*import lrpOneCandidates from "./resources/lrpOneCandidates.json";
 import lrpTwoCandidates from "./resources/lrpTwoCandidates.json";
 import lrpThreeCandidates from "./resources/lrpThreeCandidates.json";
-import lrpFourCandidates from "./resources/lrpFourCandidates.json";
-import allNodes from "./resources/decodeAllNodes.json";
-import targetPath from "./resources/targetPath.json";
+import lrpFourCandidates from "./resources/lrpFourCandidates.json";*/
+import routeOneCandidateNodesOne from "./resources/routeOneCandidateNodesOne.json";
+import routeOneCandidateNodesTwo from "./resources/routeOneCandidateNodesTwo.json";
+import routeTwoCandidateNodesOne from "./resources/routeTwoCandidateNodesOne.json";
+import routeTwoCandidateNodesTwo from "./resources/routeTwoCandidateNodesTwo.json";
+import routeTwoCandidateNodesThree from "./resources/routeTwoCandidateNodesThree.json";
+import routeOneLRP from "./resources/routeOneLRP.json";
+import routeOneLRPnoFRC from "./resources/routeOneLRPnoFRC.json";
+import routeTwoLRP from "./resources/routeTwoLRP.json";
+import badRouteLRP from "./resources/badRouteLRP.json";
+import allNodes from "./resources/fullMap.json";
+import targetPathOne from "./resources/targetPathOne.json";
+import targetPathTwo from "./resources/targetPathTwo.json";
+import targetPathThree from "./resources/targetPathThree.json";
 
 describe("openLRDecode", function(){
 
     describe("decodeOpenLRReference", function(){
-        let findResult: Collection;
 
-        before(function(){ 
-            const findFake = sinon.stub();
-            findResult = {find: findFake} as unknown as Collection;
-            sinon.stub(Mongo, "getCollection").returns(findResult);
-            findFake.onCall(0).returns({toArray: function(){return Promise.resolve(lrpOneCandidates);}});
-            findFake.onCall(1).returns({toArray: function(){return Promise.resolve(lrpTwoCandidates);}});
-            findFake.onCall(2).returns({toArray: function(){return Promise.resolve(lrpThreeCandidates);}});
-            findFake.onCall(3).returns({toArray: function(){return Promise.resolve(lrpFourCandidates);}});
-            findFake.onCall(4).returns({toArray: function(){return Promise.resolve(allNodes);}});
+        before(function(){
+            // decode any openLRRef to our predefined openLR objects
+            const lrpDecodeStub = sinon.stub(openlrJS.Serializer, "serialize");
+            lrpDecodeStub.onCall(0).returns(routeOneLRP);
+            lrpDecodeStub.onCall(1).returns(routeOneLRPnoFRC);
+            lrpDecodeStub.onCall(2).returns(routeTwoLRP);
+            lrpDecodeStub.onCall(3).returns(badRouteLRP);
+
+            // Simulate geo-lookup of nodes from storage
+            const findStub = sinon.stub(configureStorage, "findNodesNearPoint");
+            findStub.onCall(0).resolves(routeOneCandidateNodesOne);
+            findStub.onCall(1).resolves(routeOneCandidateNodesTwo);
+            findStub.onCall(2).resolves(routeOneCandidateNodesOne);
+            findStub.onCall(3).resolves(routeOneCandidateNodesTwo);
+            findStub.onCall(4).resolves(routeTwoCandidateNodesOne);
+            findStub.onCall(5).resolves(routeTwoCandidateNodesTwo);
+            findStub.onCall(6).resolves(routeTwoCandidateNodesThree);
+            findStub.onCall(7).resolves(routeOneCandidateNodesTwo);
+            findStub.onCall(8).resolves(routeOneCandidateNodesOne);
+            
+            // Simulate geo-lookup of all nodes in LRP polygon
+            sinon.stub(configureStorage, "findNodesInPolygon").resolves(allNodes);
         });
 
-        it("decodes an openLRRef to a route of linkids", async function(){
+        it("decodes an openLRRef with lfrc to a route of linkids", async function(){
             const openLRRef = "C/+ASyT5EAogGPylBIAKP9DK4RZfCjsf9l8BwAwP";
-            const options: OpenLRDecodeOptions = {targetBearing: 45, searchRadius: 50};
-            const result = await decodeOpenLRReference(openLRRef, "test", options);
-            const compare = [];
+            const options: OpenLRDecodeOptions = {targetBearing: 10, searchRadius: 50};
+            const result = await decodeOpenLRReference(openLRRef, options);
+            const compare: string[] = [];
             for(const link of result.route as Array<{linkid: string}>)
                 compare.push(link.linkid);
-            assert.deepStrictEqual(compare, targetPath.path);
+            assert.deepStrictEqual(compare, targetPathOne.path);
+        });
+
+        it("decodes an openLRRef without lfrc to a route of links", async function(){
+            const openLRRef = "C/+ASyT5EAogGPylBIAKP9DK4RZfCjsf9l8BwAwP";
+            const options: OpenLRDecodeOptions = {targetBearing: 10, searchRadius: 50};
+            const result = await decodeOpenLRReference(openLRRef, options);
+            const compare: string[] = [];
+            for(const link of result.route as Array<{linkid: string}>)
+                compare.push(link.linkid);
+            assert.deepStrictEqual(compare, targetPathTwo.path);
+        });
+
+        it("decodes an openLRRef with SC links", async function(){
+            const openLRRef = "C/+ASyT5EAogGPylBIAKP9DK4RZfCjsf9l8BwAwP";
+            const options: OpenLRDecodeOptions = {targetBearing: 10, searchRadius: 50};
+            const result = await decodeOpenLRReference(openLRRef, options);
+            const compare: string[] = [];
+            for(const link of result.route as Array<{linkid: string}>)
+                compare.push(link.linkid);
+            assert.deepStrictEqual(compare, targetPathThree.path);
+        });
+
+        it("fails to decode an LRP with no navigable route", async function(){
+            const openLRRef = "C/+ASyT5EAogGPylBIAKP9DK4RZfCjsf9l8BwAwP";
+            const options: OpenLRDecodeOptions = {targetBearing: 10, searchRadius: 50};
+            const result = await decodeOpenLRReference(openLRRef, options);
+            assert.deepStrictEqual(result.route, null);
         });
 
     });

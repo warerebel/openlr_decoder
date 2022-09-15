@@ -4,9 +4,11 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
-## [Unreleased] - 2022-05-17
-### Added
-- Initial module to decode openLR route
+## [0.6.0] - 2022-09-15
+### Changed
+- Updated tests to be run against simpler link-node model
+- Refactored storage to enable future support for more backends
+- Updated docs
 
 ## [0.5.0] - 2022-08-30
 ### Added
@@ -14,3 +16,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Removed
 - Removed OS open roads specific workarounds, no support provided for OS open roads
+
+## [Unreleased] - 2022-05-17
+### Added
+- Initial module to decode openLR route

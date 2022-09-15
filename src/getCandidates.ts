@@ -1,38 +1,24 @@
 import type {LRPObject, LRP} from "./LRP";
-import {Collection} from "mongodb";
+import {configureStorage} from "./storage";
 
-export async function getCandidatesForLRP(LRPObject: LRPObject, collection: Collection, candidateSearchRadius = 50){
+export async function getCandidatesForLRP(LRPObject: LRPObject, candidateSearchRadius = 50){
     const promises = [];
     for (const LRP of LRPObject.properties._points.properties){
-        promises.push(getCandidateNodes(LRP, collection, candidateSearchRadius));
+        promises.push(getCandidateNodes(LRP, candidateSearchRadius));
     }
     return Promise.all(promises);
 }
 
-function getCandidateNodes(LRP: LRP, collection: Collection, candidateSearchRadius: number){
-    return collection.find({
-        geometry: {
-            $near:{
-                $geometry: { type: "Point",  coordinates: [LRP.properties._longitude, LRP.properties._latitude] },
-                $minDistance: 0,
-                $maxDistance: candidateSearchRadius
-            }
-        }
-    }).toArray();
+function getCandidateNodes(LRP: LRP, candidateSearchRadius: number){
+    return configureStorage.findNodesNearPoint(LRP.properties._latitude, LRP.properties._longitude, candidateSearchRadius);
 }
 
-export function getNodesForGraph(LRPObject: LRPObject, collection: Collection){
+export function getNodesForGraph(LRPObject: LRPObject){
     const polygon = getPolygon(LRPObject);
-    return collection.find({
-        geometry: {
-            $geoWithin: {
-                $geometry: polygon
-            }
-        }
-    }).toArray();
+    return configureStorage.findNodesInPolygon(polygon);
 }
 
-function getPolygon(LRPObject: LRPObject){
+function getPolygon(LRPObject: LRPObject): Polygon{
     let Top = -180;
     let Left = 180;
     let Bottom = 180;
@@ -53,4 +39,17 @@ function getPolygon(LRPObject: LRPObject){
     Left = Left - paddingValue;
     Right = Right + paddingValue;
     return { type: "Polygon", coordinates: [[[Left, Top], [Right, Top], [Right, Bottom], [Left, Bottom], [Left, Top]]] };
+}
+
+export interface Polygon {
+    type: "Polygon",
+    coordinates: [
+        [
+            [number, number],
+            [number, number],
+            [number, number],
+            [number, number],
+            [number, number]
+        ]
+    ]
 }

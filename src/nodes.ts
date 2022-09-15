@@ -48,14 +48,14 @@ declare interface nodeProperties {
 }
 
 /**
- * @property id {string} - A unique id for the link
+ * @property _id {string} - A unique id for the node
  * @property properties {nodeProperties} - Properties of the node
  * @property geometry {pointGeometry} - The geometry of the node
  * @property startLinks {nodeChildLink[]} - An array of links that start from this node
  * @property endLinks {nodeChildLink[]} - An array of links that end at this node 
  */
 export interface node {
-    id: string,
+    _id: string,
     properties: nodeProperties,
     geometry: pointGeometry,
     startLinks: Array<nodeChildLink>

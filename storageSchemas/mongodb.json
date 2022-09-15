@@ -1,0 +1,109 @@
+{
+    "$schema": "http://json-schema.org/draft-06/schema#",
+    "$ref": "#/definitions/openLRNode",
+    "definitions": {
+        "openLRNode": {
+            "type": "object",
+            "additionalProperties": false,
+            "properties": {
+                "_id": {
+                    "type": "string"
+                },
+                "geometry": {
+                    "$ref": "#/definitions/Geometry"
+                },
+                "startLinks": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/definitions/Link"
+                    }
+                },
+                "endLinks": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/definitions/Link"
+                    }
+                }
+            },
+            "required": [
+                "_id",
+                "endLinks",
+                "geometry",
+                "startLinks"
+            ],
+            "title": "Welcome2"
+        },
+        "Link": {
+            "type": "object",
+            "additionalProperties": false,
+            "properties": {
+                "linkid": {
+                    "type": "string"
+                },
+                "fow": {
+                    "type": "string",
+                    "enum": [
+                        "M",
+                        "DC",
+                        "SC",
+                        "R",
+                        "TS",
+                        "SL",
+                        "O"
+                    ]
+                },
+                "startnode": {
+                    "type": "string"
+                },
+                "endnode": {
+                    "type": "string"
+                },
+                "frc": {
+                    "type": "integer",
+                    "minimum": 0,
+                    "maximum": 7
+                },
+                "cost": {
+                    "type": "number"
+                },
+                "bearing": {
+                    "type": "number",
+                    "minimum": -180,
+                    "maxmium": 180
+                }
+            },
+            "required": [
+                "bearing",
+                "cost",
+                "endnode",
+                "fow",
+                "frc",
+                "linkid",
+                "startnode"
+            ],
+            "title": "Link"
+        },
+        "Geometry": {
+            "type": "object",
+            "additionalProperties": false,
+            "properties": {
+                "type": {
+                    "type": "string"
+                },
+                "coordinates": {
+                    "type": "array",
+                    "items": {
+                        "type": "number",
+                        "minItems": 2,
+                        "maxItems": 3
+                    }
+                }
+            },
+            "required": [
+                "coordinates",
+                "type"
+            ],
+            "title": "Geometry"
+        }
+    }
+}

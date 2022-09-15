@@ -1,0 +1,65 @@
+{
+    "type": "RawLineLocationReference",
+    "properties": {
+      "_id": "binary",
+      "_locationType": 1,
+      "_returnCode": null,
+      "_points": {
+        "type": "Array",
+        "properties": [
+          {
+            "type": "LocationReferencePoint",
+            "properties": {
+              "_bearing": 270,
+              "_distanceToNext": 10,
+              "_frc": 2,
+              "_fow": 3,
+              "_lfrcnp": 2,
+              "_isLast": false,
+              "_longitude": 3,
+              "_latitude": -1,
+              "_sequenceNumber": 1
+            }
+          },
+          {
+            "type": "LocationReferencePoint",
+            "properties": {
+              "_bearing": 0,
+              "_distanceToNext": 10,
+              "_frc": 2,
+              "_fow": 2,
+              "_lfrcnp": 2,
+              "_isLast": false,
+              "_longitude": 1,
+              "_latitude": -1,
+              "_sequenceNumber": 2
+            }
+          },
+          {
+            "type": "LocationReferencePoint",
+            "properties": {
+              "_bearing": 180,
+              "_distanceToNext": 10,
+              "_frc": 2,
+              "_fow": 2,
+              "_lfrcnp": 2,
+              "_isLast": true,
+              "_longitude": 1,
+              "_latitude": 0,
+              "_sequenceNumber": 3
+            }
+          }
+        ]
+      },
+      "_offsets": {
+        "type": "Offsets",
+        "properties": {
+          "_pOffset": 0,
+          "_nOffset": 0,
+          "_version": 3,
+          "_pOffRelative": 0,
+          "_nOffRelative": 0
+        }
+      }
+    }
+  }

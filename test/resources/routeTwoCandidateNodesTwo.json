@@ -1,0 +1,40 @@
+[
+    {
+        "_id": "7",
+        "geometry": {
+            "type": "Point",
+            "coordinates": [1,-1]
+        },
+        "startLinks": [
+            {
+                "startnode": "7",
+                "endnode": "2",
+                "linkid": "d",
+                "bearing": 0,
+                "fow": "DC",
+                "cost": 10,
+                "frc": 2
+            },
+            {
+                "startnode": "7",
+                "endnode": "8",
+                "linkid": "g",
+                "bearing": 90,
+                "fow": "SC",
+                "cost": 10,
+                "frc": 2
+            }
+        ],
+        "endLinks": [
+            {
+                "startnode": "8",
+                "endnode": "7",
+                "linkid": "g",
+                "bearing": -90,
+                "fow": "SC",
+                "cost": 10,
+                "frc": 2
+            }
+        ]
+    }
+]
