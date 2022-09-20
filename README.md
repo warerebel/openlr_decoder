@@ -39,7 +39,14 @@ Decode an OpenLR string providing the string and any options.
 ```typescript
 async main(){
 
-    await initStorage("mongodb", "mongodb://localhost:27017", "openlrdatabase");
+    // Backend storage connection options
+    const options = {
+        storageBackend: "mongodb",
+        url: "127.0.0.1:27017",
+        dbName: "streetMap"
+    }
+
+    await initStorage(options);
 
     const result = await decodeOpenLr("C/+/+yY40CuxDAA6/WgrHw==", {targetBearing: 25, searchRadius: 100});
 

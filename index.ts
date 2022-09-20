@@ -3,16 +3,23 @@ import {configureStorage} from "./src/storage";
 
 export{OpenLRDecodeOptions} from "./src/openLRDecode";
 
+export interface storageOptions {
+    storageBackend: string;
+    url: string;
+    dbName: string;
+    username?: string;
+    password?: string;
+    authMechanism?: string;
+}
+
 /**
- * @function initStorage - Initialise a connection to a beckend storage
- * @function storageOption - The storage backend solution to use
- * @param url {string} - The connection string for storage
- * @param dbName {string} - The name of the database to use
+ * @function initStorage - Initialise a connection to a backend storage
+ * @param storageOptions - The storage backend solution to use
  * @returns {Promise} - A void Promise to wait for the initialisation to complete
  */
-export async function initStorage(storageOption: string, url: string, dbName: string){
-    new configureStorage({storage: storageOption});
-    return configureStorage.init(url, dbName);
+export async function initStorage(storageOptions: storageOptions){
+    new configureStorage(storageOptions);
+    return configureStorage.init(storageOptions);
 }
 
 /**
