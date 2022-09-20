@@ -1,27 +1,24 @@
 import { Mongo } from "./mongo";
 import type { Polygon } from "./getCandidates";
 import { storageOption } from "./storageOption";
+import type {storageOptions} from "../index";
 
 /* istanbul ignore file */
-
-export interface storageOptions {
-    storage: string
-}
 
 export class configureStorage {
 
     static storage: storageOption;
 
     constructor(options: storageOptions) {
-        switch (options.storage) {
+        switch (options.storageBackend) {
         case "mongodb": configureStorage.storage = new Mongo();
             break;
         default: throw (new Error("Unrecognised storage option"));
         }
     }
 
-    static async init(url: string, dbName: string) {
-        return configureStorage.storage.init(url, dbName);
+    static async init(storageOptions: storageOptions) {
+        return configureStorage.storage.init(storageOptions);
     }
 
     static async findNodesNearPoint(latitude: number, longitude: number, searchRadius: number) {

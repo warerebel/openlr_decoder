@@ -1,6 +1,7 @@
 import {MongoClient, Db} from "mongodb";
 import type {Polygon} from "./getCandidates";
 import {storageOption} from "./storageOption";
+import type {storageOptions} from "../index";
 
 /* istanbul ignore file */
 
@@ -13,11 +14,22 @@ export class Mongo extends storageOption{
         super();
     }
 
-    override async init(url: string, dbName: string){
+    override async init(options: storageOptions){
+        const url = this.getURL(options);
         Mongo.client = new MongoClient(url);
         await Mongo.client.connect();
-        Mongo.db = Mongo.client.db(dbName);
+        Mongo.db = Mongo.client.db(options.dbName);
         return Mongo.client;
+    }
+
+    getURL(options: storageOptions){
+        if(options.username && options.password){
+            if(!options.authMechanism)
+                options.authMechanism = "DEFAULT";
+                return `mongodb://${options.username}:${options.password}@${options.url}/?authMechanism=${options.authMechanism}`;
+        } else {
+            return `mongodb://${options.url}`
+        }
     }
 
     override async findNodesNearPoint(latitude: number, longitude: number, searchRadius: number){
