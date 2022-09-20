@@ -26,9 +26,9 @@ export class Mongo extends storageOption{
         if(options.username && options.password){
             if(!options.authMechanism)
                 options.authMechanism = "DEFAULT";
-                return `mongodb://${options.username}:${options.password}@${options.url}/?authMechanism=${options.authMechanism}`;
+            return `mongodb://${options.username}:${options.password}@${options.url}/?authMechanism=${options.authMechanism}`;
         } else {
-            return `mongodb://${options.url}`
+            return `mongodb://${options.url}`;
         }
     }
 
