@@ -1,6 +1,6 @@
 {
   "name": "openlr_decoder",
-  "version": "0.6.1",
+  "version": "0.6.2",
   "description": "A general purpose road network OpenLR decoding solution",
   "keywords": [
     "openlr",
@@ -14,12 +14,12 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/warerebel/openlr-decoder.git"
+    "url": "git+https://github.com/warerebel/openlr_decoder.git"
   },
   "bugs": {
-    "url": "https://github.com/warerebel/openlr-decoder/issues"
+    "url": "https://github.com/warerebel/openlr_decoder/issues"
   },
-  "homepage": "https://github.com/warerebel/openlr-decoder#readme",
+  "homepage": "https://github.com/warerebel/openlr_decoder#readme",
   "devDependencies": {
     "@types/mocha": "^9.1.0",
     "@types/node": "^17.0.23",
