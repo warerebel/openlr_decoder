@@ -17,6 +17,7 @@ import routeOneLRP from "./resources/routeOneLRP.json";
 import routeOneLRPnoFRC from "./resources/routeOneLRPnoFRC.json";
 import routeTwoLRP from "./resources/routeTwoLRP.json";
 import badRouteLRP from "./resources/badRouteLRP.json";
+import badFOWLRP from "./resources/badFOWLRP.json";
 import allNodes from "./resources/fullMap.json";
 import targetPathOne from "./resources/targetPathOne.json";
 import targetPathTwo from "./resources/targetPathTwo.json";
@@ -33,6 +34,7 @@ describe("openLRDecode", function(){
             lrpDecodeStub.onCall(1).returns(routeOneLRPnoFRC);
             lrpDecodeStub.onCall(2).returns(routeTwoLRP);
             lrpDecodeStub.onCall(3).returns(badRouteLRP);
+            lrpDecodeStub.onCall(4).returns(badFOWLRP);
 
             // Simulate geo-lookup of nodes from storage
             const findStub = sinon.stub(configureStorage, "findNodesNearPoint");
@@ -45,6 +47,8 @@ describe("openLRDecode", function(){
             findStub.onCall(6).resolves(routeTwoCandidateNodesThree);
             findStub.onCall(7).resolves(routeOneCandidateNodesTwo);
             findStub.onCall(8).resolves(routeOneCandidateNodesOne);
+            findStub.onCall(9).resolves(routeOneCandidateNodesOne);
+            findStub.onCall(10).resolves(routeOneCandidateNodesTwo);
             
             // Simulate geo-lookup of all nodes in LRP polygon
             sinon.stub(configureStorage, "findNodesInPolygon").resolves(allNodes);
@@ -85,6 +89,16 @@ describe("openLRDecode", function(){
             const options: OpenLRDecodeOptions = {targetBearing: 10, searchRadius: 50};
             const result = await decodeOpenLRReference(openLRRef, options);
             assert.deepStrictEqual(result.route, null);
+        });
+
+        it("retries matching exluding fow if no winning candidates are found", async function(){
+            const openLRRef = "C/+ASyT5EAogGPylBIAKP9DK4RZfCjsf9l8BwAwP";
+            const options: OpenLRDecodeOptions = {targetBearing: 10, searchRadius: 50};
+            const result = await decodeOpenLRReference(openLRRef, options);
+            const compare: string[] = [];
+            for(const link of result.route as Array<{linkid: string}>)
+                compare.push(link.linkid);
+            assert.deepStrictEqual(compare, targetPathOne.path);
         });
 
     });

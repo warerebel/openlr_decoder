@@ -1,5 +1,5 @@
 import type { LRPObject, LRP } from "./LRP";
-import type { node } from "./nodes";
+import type { node, nodeChildLink } from "./nodes";
 import {checkFow, checkBearing} from "./checkLinkProperties";
 
 export function chooseWinningNodes(LRPObject: LRPObject, candidateNodes: node[][], targetBearing = 25) {
@@ -21,24 +21,32 @@ export function chooseWinningNodes(LRPObject: LRPObject, candidateNodes: node[][
 function checkCandidateNode(LRP: LRP, node: node, targetBearing: number){
     if(!LRP.properties._isLast){
         for(const linkNo in node.startLinks){
-            const link = node.startLinks[linkNo];
-            if(checkFow(link.fow, LRP.properties._fow)){
-                if(checkBearing(link.bearing, LRP.properties._bearing, targetBearing)){
-                    if(link.frc <= LRP.properties._frc)
-                        return {won: true, node: link.startnode};
-                }
-            }
+            if(checkLink(node.startLinks[linkNo], LRP, targetBearing, false))
+                return {won: true, node: node.startLinks[linkNo].startnode};
+        }
+        for(const linkNo in node.startLinks){
+            if(checkLink(node.startLinks[linkNo], LRP, targetBearing, true))
+                return {won: true, node: node.startLinks[linkNo].startnode};
         }
     } else{
         for(const linkNo in node.endLinks){
-            const link = node.endLinks[linkNo];
-            if(checkFow(link.fow, LRP.properties._fow)){
-                if(checkBearing(link.bearing, LRP.properties._bearing)){
-                    if(link.frc <= LRP.properties._frc)
-                        return {won: true, node: link.endnode};
-                }
-            }
+            if(checkLink(node.endLinks[linkNo], LRP, targetBearing, false))
+                return {won: true, node: node.endLinks[linkNo].endnode};
+        }
+        for(const linkNo in node.endLinks){
+            if(checkLink(node.endLinks[linkNo], LRP, targetBearing, true))
+                return {won: true, node: node.endLinks[linkNo].endnode};
         }
     }
     return {won: false};
+}
+
+function checkLink(link: nodeChildLink, LRP: LRP, targetBearing: number, skipFOW = false){
+    if(skipFOW || checkFow(link.fow, LRP.properties._fow)){
+        if(checkBearing(link.bearing, LRP.properties._bearing, targetBearing)){
+            if(link.frc <= LRP.properties._frc)
+                return true;
+        }
+    }
+    return false;
 }

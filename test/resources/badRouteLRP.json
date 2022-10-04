@@ -24,7 +24,7 @@
                 {
                     "type": "LocationReferencePoint",
                     "properties": {
-                        "_bearing": 90,
+                        "_bearing": 200,
                         "_distanceToNext": 0,
                         "_frc": 2,
                         "_fow": 2,

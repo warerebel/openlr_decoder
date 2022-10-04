@@ -52,8 +52,8 @@
                 "frc": 2
             },
             {
-                "startnode": "8",
-                "endnode": "9",
+                "startnode": "9",
+                "endnode": "8",
                 "linkid": "h",
                 "bearing": -90,
                 "fow": "SC",
