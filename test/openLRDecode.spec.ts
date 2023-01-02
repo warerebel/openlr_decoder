@@ -4,10 +4,6 @@ import * as assert from "assert";
 import * as sinon from "sinon";
 import {configureStorage} from "../src/storage";
 
-/*import lrpOneCandidates from "./resources/lrpOneCandidates.json";
-import lrpTwoCandidates from "./resources/lrpTwoCandidates.json";
-import lrpThreeCandidates from "./resources/lrpThreeCandidates.json";
-import lrpFourCandidates from "./resources/lrpFourCandidates.json";*/
 import routeOneCandidateNodesOne from "./resources/routeOneCandidateNodesOne.json";
 import routeOneCandidateNodesTwo from "./resources/routeOneCandidateNodesTwo.json";
 import routeTwoCandidateNodesOne from "./resources/routeTwoCandidateNodesOne.json";

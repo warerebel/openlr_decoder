@@ -22,26 +22,18 @@ Install the module with npm:
 npm install openlr_decoder
 ```
 
-# Import the module
-For commonjs:
-```javascript
-const {decodeOpenLR, initStorage} = require("openlr_decoder");
-```
-For typescript:
-```typescript
-import {decodeOpenLR, initStorage} from "openlr_decoder";
-```
-
 # Example Usage
 Initialise a storage connection with the chosen storage backend, the database url, and database name.
 
 Decode an OpenLR string providing the string and any options.
 ```typescript
+import {decodeOpenLR, initStorage, storageBackends, closeConnection} from "openlr_decoder";
+
 async main(){
 
     // Backend storage connection options
     const options = {
-        storageBackend: "mongodb",
+        storageBackend: storageBackends.mongodb,
         url: "127.0.0.1:27017",
         dbName: "streetMap"
     }
@@ -49,6 +41,8 @@ async main(){
     await initStorage(options);
 
     const result = await decodeOpenLr("C/+/+yY40CuxDAA6/WgrHw==", {targetBearing: 25, searchRadius: 100});
+
+    await closeConnection();
 
 }
 
@@ -63,6 +57,5 @@ The module expects data in the below described schemas for the chosen storage me
 ## Mongo Collection Design
 The module expects the mongodb database to have a collection named "nodes" which contains only node documents. Each node should contain two arrays named startLinks and endLinks. The startLinks array contains links which start from this node and the endLinks array contains links which end at this node. A JSON schema file is provided [here](/storageSchemas/mongodb.json).
 
-A complete ready to use set of OS open roads data in this format, extracted from a MongoDB collection, is provided for download here [TODO].
-
-A fully worked example of getting an OpenLR service up and running is provided here [TODO].
+A ready to use nodes collection of OpenStreetMap data, for the UK county of Lincolnshire, is provided for download [here](/resources/lincolnshire-nodes.json.bz2). The corresponding links are also provided to allow the geometry of a full route to be identified [here](/resources/lincolnshire-links.json.bz2). 
+All OpenStreetMap data is copyright [OpenStreetMap contributors](https://www.openstreetmap.org/copyright) 
