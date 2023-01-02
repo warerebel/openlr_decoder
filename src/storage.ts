@@ -2,6 +2,7 @@ import { Mongo } from "./mongo";
 import type { Polygon } from "./getCandidates";
 import { storageOption } from "./storageOption";
 import type {storageOptions} from "../index";
+import {storageBackends} from "../index";
 
 /* istanbul ignore file */
 
@@ -11,7 +12,7 @@ export class configureStorage {
 
     constructor(options: storageOptions) {
         switch (options.storageBackend) {
-        case "mongodb": configureStorage.storage = new Mongo();
+        case storageBackends.mongodb: configureStorage.storage = new Mongo();
             break;
         default: throw (new Error("Unrecognised storage option"));
         }
@@ -27,5 +28,9 @@ export class configureStorage {
 
     static async findNodesInPolygon(polygon: Polygon) {
         return configureStorage.storage.findNodesInPolygon(polygon);
+    }
+
+    static async close() {
+        return configureStorage.storage.close();
     }
 }

@@ -4,7 +4,7 @@
     "definitions": {
         "openLRNode": {
             "type": "object",
-            "additionalProperties": false,
+            "additionalProperties": true,
             "properties": {
                 "_id": {
                     "type": "string"
@@ -35,7 +35,7 @@
         },
         "Link": {
             "type": "object",
-            "additionalProperties": false,
+            "additionalProperties": true,
             "properties": {
                 "linkid": {
                     "type": "string"
@@ -78,14 +78,13 @@
                 "endnode",
                 "fow",
                 "frc",
-                "linkid",
                 "startnode"
             ],
             "title": "Link"
         },
         "Geometry": {
             "type": "object",
-            "additionalProperties": false,
+            "additionalProperties": true,
             "properties": {
                 "type": {
                     "type": "string"
@@ -93,9 +92,12 @@
                 "coordinates": {
                     "type": "array",
                     "items": {
-                        "type": "number",
-                        "minItems": 2,
-                        "maxItems": 3
+                        "type": "array",
+                        "items": {
+                            "type": "number",
+                            "minItems": 2,
+                            "maxItems": 3
+                        }
                     }
                 }
             },

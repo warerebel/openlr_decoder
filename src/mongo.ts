@@ -55,4 +55,8 @@ export class Mongo extends storageOption{
             }
         }).toArray();
     }
+
+    override async close(): Promise<unknown> {
+        return Mongo.client.close();
+    }
 }
