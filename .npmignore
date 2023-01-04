@@ -1,0 +1,10 @@
+.eslintignore
+.eslintrc.json
+.github
+.nyc_output
+/coverage
+/resources
+/src
+/storageSchemas
+/test
+tsconfig.json
