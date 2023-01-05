@@ -13,13 +13,18 @@ This module provides a simple and performant solution to decode an openLR refere
 # Dependencies
 This module requires a mongodb database instance or an Azure Cosmos instance with support for mongodb api enabled.
 
-Support for more backends will be added in future releases
+Support for more backends will be added in future releases.
 
 # Installation
 Install the module with npm:
 
 ```
 npm install openlr_decoder
+```
+
+Install the preferred backend driver (only mongodb currently supported):
+```
+npm install mongodb
 ```
 
 # Example Usage

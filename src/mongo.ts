@@ -1,4 +1,4 @@
-import {MongoClient, Db} from "mongodb";
+import type {MongoClient, Db} from "mongodb";
 import type {Polygon} from "./getCandidates";
 import {storageOption} from "./storageOption";
 import type {storageOptions} from "../index";
@@ -16,7 +16,8 @@ export class Mongo extends storageOption{
 
     override async init(options: storageOptions){
         const url = this.getURL(options);
-        Mongo.client = new MongoClient(url);
+        const mongodb = await import("mongodb");
+        Mongo.client = new mongodb.MongoClient(url);
         await Mongo.client.connect();
         Mongo.db = Mongo.client.db(options.dbName);
         return Mongo.client;
