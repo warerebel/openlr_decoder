@@ -4,6 +4,12 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [1.1.0] - 2023-01-05
+### Changed
+- Removed unneeded items from npm package
+- Mongodb is now a peer dependency to be installed separately, preparing for future user selection of backend storage
+- Mongodb is now dynamically imported at runtime, preparing for future user selection of backend storage
+
 ## [1.0.0] - 2023-01-01
 ### Changed
 - Updated sample JSON schema to allow additional properties
