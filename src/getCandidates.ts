@@ -1,6 +1,8 @@
 import type {LRPObject, LRP} from "./LRP";
 import {configureStorage} from "./storage";
 
+const graphPadding = parseFloat(process.env["OPENLR_GRAPH_PADDING"] as string) || 0.010;
+
 export async function getCandidatesForLRP(LRPObject: LRPObject, candidateSearchRadius = 50){
     const promises = [];
     for (const LRP of LRPObject.properties._points.properties){
@@ -33,7 +35,7 @@ function getPolygon(LRPObject: LRPObject): Polygon{
         if (LRP.properties._longitude < Left)
             Left = LRP.properties._longitude;
     }
-    const paddingValue = 0.005;
+    const paddingValue = graphPadding;
     Top = Top + paddingValue;
     Bottom = Bottom - paddingValue;
     Left = Left - paddingValue;
