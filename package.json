@@ -1,6 +1,6 @@
 {
   "name": "openlr_decoder",
-  "version": "1.2.0",
+  "version": "1.2.1",
   "description": "A general purpose road network OpenLR decoding solution",
   "keywords": [
     "openlr",
