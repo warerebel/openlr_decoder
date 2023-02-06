@@ -10,7 +10,7 @@
                 "startnode": "3",
                 "endnode": "4",
                 "linkid": "c",
-                "bearing": 90,
+                "bearing": -90,
                 "fow": "DC",
                 "cost": 10,
                 "frc": 2
@@ -19,7 +19,7 @@
                 "startnode": "9",
                 "endnode": "4",
                 "linkid": "f",
-                "bearing": 0,
+                "bearing": 180,
                 "fow": "DC",
                 "cost": 10,
                 "frc": 2
